@@ -1,14 +1,13 @@
 package org.sample.game.model
 
-import org.sample.game.model.Card.Colour._
-import org.sample.game.model.Card.Rank._
-import org.sample.game.model.Card._
-import org.sample.game.model.GameTableScoreCalculator._
+import org.sample.game.model.Colour._
+import org.sample.game.model.Rank._
+import org.sample.game.model.ScoreCalculator._
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.prop.TableDrivenPropertyChecks._
 
-class GameTableScoreCalculatorTest extends AnyFreeSpec
+class ScoreCalculatorTest extends AnyFreeSpec
   with Matchers {
 
   "Red should" - {

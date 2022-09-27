@@ -1,16 +1,14 @@
 package org.sample.game.model
 
-
-import org.sample.game.model.Card.{Card, Colour, Rank}
-import org.sample.game.model.Card.Rank.precedingRank
-
 import scala.language.implicitConversions
 
-object GameTableScoreCalculator {
+object ScoreCalculator {
+
+  implicit def byValue[A <: Card]: Ordering[A] = Ordering.by(e => e.value)
 
   def bestPalette(rule: Colour, palettes: List[List[Card]]): List[Card] = palettes
     .map(palette => (palette, rule.score(palette)))
-    .maxBy {case(palette, score) => score}
+    .maxBy { case (_, score) => score }
     ._1
 
   implicit class RuleCalculator(rule: Colour) {
@@ -69,7 +67,7 @@ object GameTableScoreCalculator {
   def listScore(cards: List[Card]): Int = cards.size * 50 + cards.lastOption.map(card => card.value).getOrElse(0)
 
   def numberOfPreceding(rank: Rank, ranks: Set[Rank]): Int = {
-    precedingRank(rank) match {
+    rank.precedingRank() match {
       case Some(value) if ranks.contains(value) => numberOfPreceding(value, ranks) + 1
       case _                                    => 0
     }
