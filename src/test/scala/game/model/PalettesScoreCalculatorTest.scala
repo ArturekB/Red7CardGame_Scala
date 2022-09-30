@@ -2,12 +2,12 @@ package org.sample.game.model
 
 import org.sample.game.model.Colour._
 import org.sample.game.model.Rank._
-import org.sample.game.model.ScoreCalculator._
+import org.sample.game.engine.PalettesScoreCalculator._
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.prop.TableDrivenPropertyChecks._
 
-class ScoreCalculatorTest extends AnyFreeSpec
+class PalettesScoreCalculatorTest extends AnyFreeSpec
   with Matchers {
 
   "Red should" - {

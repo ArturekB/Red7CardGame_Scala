@@ -3,9 +3,9 @@ package game.model
 
 import io.circe.Encoder
 
-case class PlayerId(value: Int)
+case class PlayerId(value: Int, name: String)
 
 object PlayerId {
 
-  lazy implicit val playerIdEncoder: Encoder[PlayerId] = id => Encoder[Int].apply(id.value)
+  lazy implicit val playerIdEncoder: Encoder[PlayerId] = id => Encoder[String].apply(id.name)
 }

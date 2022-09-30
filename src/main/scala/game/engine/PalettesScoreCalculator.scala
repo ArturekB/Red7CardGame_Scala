@@ -1,8 +1,9 @@
-package org.sample.game.model
+package org.sample
+package game.engine
 
-import scala.language.implicitConversions
+import game.model.{Card, Colour, Rank}
 
-object ScoreCalculator {
+object PalettesScoreCalculator {
 
   implicit def byValue[A <: Card]: Ordering[A] = Ordering.by(e => e.value)
 

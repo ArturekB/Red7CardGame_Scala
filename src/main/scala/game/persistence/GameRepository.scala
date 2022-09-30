@@ -8,10 +8,10 @@ import scala.collection.mutable.ListBuffer
 
 final class GameRepository(private var repo: ListBuffer[GameWithId]) {
 
-  val makeId: String = UUID.randomUUID().toString
+  def makeId: String = UUID.randomUUID().toString
 
   def storeGame(game: Game): String = {
-    var id = makeId
+    val id = makeId
     repo += GameWithId(id, game)
     id
   }
@@ -29,5 +29,5 @@ final class GameRepository(private var repo: ListBuffer[GameWithId]) {
 }
 
 object GameRepository {
-  def initialize = new GameRepository(ListBuffer())
+  val repository = new GameRepository(ListBuffer())
 }
