@@ -8,6 +8,6 @@ import io.circe.generic.semiauto.deriveEncoder
 
 case class GameWithId(id: String, game: Game)
 
-object GameWithIdUtils{
+object GameWithId{
     implicit val gameEncoder: Encoder[GameWithId] = deriveEncoder[GameWithId]
 }

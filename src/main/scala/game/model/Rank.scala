@@ -1,6 +1,8 @@
 package org.sample
 package game.model
 
+import io.circe.{Decoder, DecodingFailure, Encoder, HCursor}
+
 trait Rank
 
 object Rank {
@@ -43,4 +45,16 @@ object Rank {
 
   final case object One extends Rank
 
+  implicit val rankEncoder: Encoder[Rank] = rank => Encoder[String].apply(rank.toString)
+  implicit def rankDecoder: Decoder[Rank] = (c: HCursor) => c.downField("rank").as[String]
+    .flatMap {
+      case "Seven" => Right(Seven)
+      case "Six"   => Right(Six)
+      case "Five"  => Right(Five)
+      case "Four"  => Right(Four)
+      case "Three" => Right(Three)
+      case "Two"   => Right(Two)
+      case "One"   => Right(One)
+      case name    => Left(DecodingFailure(s"$name is not a valid Rank", c.history))
+    }
 }

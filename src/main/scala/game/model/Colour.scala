@@ -1,15 +1,13 @@
 package org.sample
 package game.model
 
-import io.circe.Encoder
+import io.circe.{Decoder, DecodingFailure, Encoder, HCursor}
 
 trait Colour
 
 object Colour {
 
   def values: List[Colour] = List(Violet, Indigo, Blue, Green, Yellow, Orange, Red)
-
-  lazy implicit val colourEncoder: Encoder[Colour] = id => Encoder[String].apply(id.toString)
 
   implicit class ColorUtil(colour: Colour) {
     def value: Int = colour match {
@@ -37,4 +35,17 @@ object Colour {
 
   final case object Violet extends Colour
 
+  implicit val colourEncoder: Encoder[Colour] = colour => Encoder[String].apply(colour.toString)
+  implicit def colourDecoder: Decoder[Colour] = (c: HCursor) => {
+    c.downField("colour").as[String].flatMap {
+      case "Red"    => Right(Red)
+      case "Orange" => Right(Orange)
+      case "Yellow" => Right(Yellow)
+      case "Green"  => Right(Green)
+      case "Blue"   => Right(Blue)
+      case "Indigo" => Right(Indigo)
+      case "Violet" => Right(Violet)
+      case name     => Left(DecodingFailure(s"$name is not a valid Colour", c.history))
+    }
+  }
 }
